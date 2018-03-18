@@ -1,0 +1,38 @@
+;  extract the style parameters
+
+;  if this is the first style, we will create a conversion style for it
+Calculate lIsFirst as iOWrite.$firstsel=0|iLastChar=chr(13)|iLastChar=chr(10)
+If lIsFirst
+	Calculate iStyleCount as iStyleCount+1
+	Calculate lStyleName as pick(iStyleCount>1,"Converter",con("Converter",iStyleCount))
+	Calculate iOWrite.$curstylename as lStyleName
+	Calculate iOWrite.$editstylename as lStyleName
+End If
+
+;  get font name
+Calculate lVarTxt as strtok(nam(pTag),';')
+If len(lVarTxt)
+	Calculate iOWrite.$curfont as lVarTxt
+End If
+;  get font size
+Calculate lVarInt as strtok(nam(pTag),';')
+If lVarInt
+	Calculate iOWrite.$curfontsize as lVarInt
+End If
+;  get style Bold, etc
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$curbold as bitand(lVarInt,1)
+Calculate iOWrite.$curitalic as bitand(lVarInt,2)
+Calculate iOWrite.$curunderline as bitand(lVarInt,4)
+;  get super/sub-script
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$cursuperscript as lVarInt>0
+Calculate iOWrite.$cursubscript as lVarInt<0
+;  get text color
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$curfontcolor as pick(lVarInt,kBlack,kBlue,kGreen,kCyan,kMagenta,kRed,kWhite,kWhite)
+;  we are done
+
+If lIsFirst
+	Calculate iOWrite.$editstylename as ""
+End If

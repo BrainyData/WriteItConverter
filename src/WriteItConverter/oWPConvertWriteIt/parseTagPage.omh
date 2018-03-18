@@ -1,0 +1,24 @@
+;  extract the page parameters
+
+;  extract the non-printable margins
+Calculate lNPTop as strtok(nam(pTag),';')
+Calculate lNPLeft as strtok(nam(pTag),';')
+Calculate lNPHeight as strtok(nam(pTag),';')
+Calculate lNPWidth as strtok(nam(pTag),';')
+;  extract the printable margins
+Calculate lPTop as strtok(nam(pTag),';')
+Calculate lPLeft as strtok(nam(pTag),';')
+Calculate lPBottom as strtok(nam(pTag),';')
+Calculate lPRight as strtok(nam(pTag),';')
+;  assign the OWrite document margins
+Calculate iOWrite.$::topmargin as $cinst.$convPoints(lNPTop+lPTop)
+Calculate iOWrite.$::leftmargin as $cinst.$convPoints(lNPLeft+lPLeft)
+Calculate iOWrite.$::bottommargin as $cinst.$convPoints(lNPTop+lPBottom)
+Calculate iOWrite.$::rightmargin as $cinst.$convPoints(lNPLeft+lPRight)
+;  assign the OWrite paper size
+Calculate lPaperLength as $cinst.$convPoints(lNPHeight+lNPTop*2)
+Calculate lPaperWidth as $cinst.$convPoints(lNPWidth+lNPLeft*2)
+;       ;; qqq need to do paper matching
+;       ;; for now we will just assign the width and height
+Calculate iOWrite.$::paperlength as lPaperLength
+Calculate iOWrite.$::paperwidth as lPaperWidth

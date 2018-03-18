@@ -1,0 +1,7 @@
+;  OWrite expects co-ordinates according to $usecms
+If $root.$prefs.$usecms
+	Calculate pNumber as pNumber/72*2.54
+Else
+	Calculate pNumber as pNumber/72
+End If
+Quit method pNumber

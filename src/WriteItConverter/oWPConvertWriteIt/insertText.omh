@@ -1,0 +1,9 @@
+;  look for special chars
+Calculate iLastChar as mid(pTextData,len(pTextData),1)
+While len(pTextData)
+	Calculate lTextData as strtok('pTextData',lPgBrkChar)     ;; NOTE: cannot use nam() with Field Reference parameters
+	Do iOWrite.$::insert(kWriObjTypeText,lTextData) Returns lResult
+	If len(pTextData)
+		Do iOWrite.$::insert(kWriObjTypeChar,kWriCharPageBreak)
+	End If
+End While

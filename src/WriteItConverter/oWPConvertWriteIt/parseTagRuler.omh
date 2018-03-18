@@ -1,0 +1,29 @@
+;  extract the ruler parameters
+
+;  get left indent
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$curleftindent as $cinst.$convPoints(lVarInt)
+;  get right indent
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$currightindent as $cinst.$convPoints(lVarInt)
+;  get first line indent
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$curfirstindent as $cinst.$convPoints(lVarInt)-iOWrite.$curleftindent
+;  get justification
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$curalign as pick(lVarInt,3,0,1,2)     ;; WriteIt justification: 0=Justified, 1=left, 2=center, 3=right // OWrite justification: 0=left, 1=center, 2=right, 3=justified
+;  get tabs
+Calculate lVarTxt as strtok(nam(pTag),';')
+While lVarTxt<>"0"
+	Calculate lTabJust as pick(asc(lVarTxt,1)-asc('A',1),'L','R','C','D','-')
+	If lTabJust<>'-'
+		Calculate lVarInt as mid(lVarTxt,2,255)
+		Calculate lTabs as con(lTabs,lTabJust,$cinst.$convPoints(lVarInt),' ')
+	End If
+	Calculate lVarTxt as strtok(nam(pTag),';')
+End While
+Calculate iOWrite.$curtabs as lTabs
+;  get paragraph spacing
+Calculate lVarInt as strtok(nam(pTag),';')
+Calculate iOWrite.$curspaceafter as $cinst.$convPoints(lVarInt)
+;  we are done

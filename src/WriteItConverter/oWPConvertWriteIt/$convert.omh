@@ -1,0 +1,29 @@
+;  initialize our OWrite non-visual object with an empty document
+Do iOWrite.$loaddata("",kWriFmtText)
+;  is this really a WriteIt document?
+If $cinst.$isWriteItDocument(pInDoc)
+	;  convert WriteIt document to OWrite
+	Calculate iDocData as pInDoc
+	Calculate iAssignResults as pAssignResults
+	
+	;  main loop     ;; look for '«' and '»'
+	While len(iDocData)
+		Calculate lTextData as strtok(nam(iDocData),'«')
+		If iInVarTags
+			Calculate iVarTagsData as lTextData
+		Else If len(lTextData)
+			Do method insertText (lTextData)
+		End If
+		Calculate lTagData as strtok(nam(iDocData),'»')
+		If len(lTagData)
+			Do method parseTag (lTagData)
+		End If
+	End While
+	
+	Do iOWrite.$savedata(lNewData,kWriFmtDefault)
+	Calculate pOutDoc as lNewData
+Else
+	;  just return an empty OWrite document
+	Do iOWrite.$savedata(lNewData,kWriFmtDefault)
+	Calculate pOutDoc as lNewData
+End If

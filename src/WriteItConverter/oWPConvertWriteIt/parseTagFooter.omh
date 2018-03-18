@@ -1,0 +1,6 @@
+;  not supported - strip entire footer content
+Calculate p as pos('.Bottom page',iDocData)
+If p
+	Calculate p as p+len('.Bottom page')
+	Calculate iDocData as mid(iDocData,p,10000000)
+End If

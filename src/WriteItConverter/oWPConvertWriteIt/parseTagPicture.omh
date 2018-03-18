@@ -1,0 +1,9 @@
+;  insert a picture
+
+;  NOT IMPLEMENTED
+
+If iInVarTags
+	Calculate iInVarTags as kFalse
+Else
+	Calculate iInVarTags as kTrue
+End If

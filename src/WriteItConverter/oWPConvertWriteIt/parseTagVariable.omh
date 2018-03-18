@@ -1,0 +1,23 @@
+;  insert an OWrite field
+;  this assumes that the &variable tag contains valid Omnis fields or calculations
+;  in the format «&variable;display_name=calculation_or_field_name:value»
+;  this code may need to be modified for implementation specific variables
+
+If iInVarTags
+	Calculate iInVarTags as kFalse
+	;  get the variable components
+	Calculate lName as strtok(nam(iVarTagsData),'=')
+	Calculate lCalc as strtok(nam(iVarTagsData),':')
+	Calculate lDesc as con(lName,' = ',lCalc)
+	Do method convertFields (lCalc,lDesc) Returns lConvertOK
+	;  now insert the OWrite field
+	Do iOWrite.$::insert(kWriObjTypeCalc,con(lName,';',lCalc)) Returns lResult
+	Do iOWrite.$curobjtooltip.$assign(lDesc)
+	If iAssignResults
+		Do iOWrite.$curobjresult.$assign(iVarTagsData)
+	End If
+	;  set selection to the end
+	Do iOWrite.$setselection(iOWrite.$lastsel,iOWrite.$lastsel)
+Else
+	Calculate iInVarTags as kTrue
+End If

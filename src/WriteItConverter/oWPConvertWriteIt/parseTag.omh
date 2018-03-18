@@ -1,0 +1,16 @@
+;  extract the tag name
+Calculate lTagName as strtok(nam(pTag),';')
+Switch low(lTagName)
+	Case 'style'
+		Do method parseTagStyle (pTag)
+	Case 'ruler'
+		Do method parseTagRuler (pTag)
+	Case '.page'
+		Do method parseTagPage (pTag)
+	Case '.imprim'
+		Do method parseTagImprim (pTag)
+	Case '&variable'
+		Do method parseTagVariable (pTag)
+	Case '&picture'
+		Do method parseTagPicture (pTag)
+End Switch

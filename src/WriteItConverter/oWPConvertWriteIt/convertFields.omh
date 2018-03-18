@@ -1,0 +1,7 @@
+;  this method is responsible for converting fields that cannot be supported by OWrite
+;  OWrite fields must contain valid Omnis fields or calculations, that can include notation method calls
+
+;  ADD YOUR CONVERSION CODE HERE IF REQUIRED
+
+;  return kFalse if conversion failed
+Quit method kTrue

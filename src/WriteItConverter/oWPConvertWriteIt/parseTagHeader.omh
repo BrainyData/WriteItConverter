@@ -1,0 +1,6 @@
+;  not supported - strip entire header content
+Calculate p as pos('.Header page',iDocData)
+If p
+	Calculate p as p+len('.Header page')
+	Calculate iDocData as mid(iDocData,p,10000000)
+End If
